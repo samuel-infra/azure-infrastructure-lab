@@ -1,6 +1,35 @@
-# Azure Infrastructure Lab
+# ☁️ Azure Infrastructure Lab
 
-> Hands-on Microsoft Azure infrastructure project focused on virtual networking, Windows Server, SQL Server, shared storage, network security, and validation.
+<p align="left">
+  <img src="https://img.shields.io/badge/Microsoft_Azure-Cloud-0078D4?logo=microsoftazure&logoColor=white" alt="Microsoft Azure">
+  <img src="https://img.shields.io/badge/Windows_Server-2022-0078D4?logo=windows&logoColor=white" alt="Windows Server 2022">
+  <img src="https://img.shields.io/badge/SQL_Server-2025-CC2927?logo=microsoftsqlserver&logoColor=white" alt="SQL Server 2025">
+  <img src="https://img.shields.io/badge/PowerShell-Network_Testing-5391FE?logo=powershell&logoColor=white" alt="PowerShell">
+  <img src="https://img.shields.io/badge/Status-In_Progress-yellow" alt="Project status">
+</p>
+
+> **Hands-on Azure infrastructure project** demonstrating private networking, Windows Server administration, SQL Server, Azure Files, NSG security controls, PowerShell validation, and cost-aware cloud operations.
+
+## 🎯 Project Summary
+
+This repository demonstrates a working two-server Azure environment built for the fictional company **Sweditech AB**. The goal was to design, deploy, secure, and validate a small backend infrastructure where administration is separated from the SQL workload and server-to-server communication remains on the private Azure network.
+
+### Key outcomes
+
+- Deployed and configured **two Windows Server VMs** in Microsoft Azure
+- Designed a **VNet and dedicated server subnet**
+- Kept the **SQL Server VM private with no public IP**
+- Restricted SQL traffic using an **Azure NSG and Windows Firewall**
+- Validated TCP 1433 connectivity using **PowerShell**
+- Installed **SQL Server 2025 Developer** and managed it remotely with **SSMS**
+- Implemented **Azure Files** shared storage across both servers
+- Applied basic **cost-management controls** such as auto-shutdown and VM deallocation
+
+## 🧰 Technology Stack
+
+`Azure` · `Windows Server 2022` · `Azure Virtual Network` · `NSG` · `Azure Files` · `SQL Server 2025` · `SSMS` · `PowerShell` · `Windows Firewall` · `RDP`
+
+---
 
 ## Project Overview
 
@@ -8,7 +37,7 @@ This project documents the practical implementation of a small Azure infrastruct
 
 The environment was designed to separate administration from the database workload while keeping backend communication on a private Azure network. The lab also includes shared storage, network security controls, connectivity testing, and basic cost-management measures.
 
-## Architecture
+## 🏗️ Architecture
 
 ```text
                          Internet
@@ -46,21 +75,7 @@ The environment was designed to separate administration from the database worklo
                       VM01 <-> VM02
 ```
 
-## Technologies
-
-- Microsoft Azure
-- Azure Virtual Machines
-- Azure Virtual Network
-- Network Security Groups (NSG)
-- Azure Files / Storage Account
-- Windows Server 2022
-- SQL Server 2025 Developer
-- SQL Server Management Studio (SSMS)
-- Windows Defender Firewall
-- PowerShell networking tools
-- Remote Desktop Protocol (RDP)
-
-## Network Design
+## 🌐 Network Design
 
 The environment uses **Sweditech-VNET-BE** with the address space `10.0.0.0/16`.
 
@@ -80,7 +95,7 @@ Both virtual machines are connected to this subnet.
 
 The SQL server is intentionally kept private. Administration and SQL connectivity to VM02 are performed through the internal Azure network.
 
-## Virtual Machines
+## 🖥️ Virtual Machines
 
 ### Sweditech-VM01 — Administration Server
 
@@ -128,7 +143,7 @@ Administration of VM02 was performed from VM01 using the private address `10.0.1
 
 ![Private RDP connection from VM01 to VM02](screenshots/08-private-rdp-vm02.png)
 
-## Network Security
+## 🔐 Network Security
 
 A Network Security Group rule was configured to allow SQL traffic only from the server subnet:
 
@@ -149,7 +164,7 @@ The Azure NSG rule below shows TCP 1433 restricted to the internal `10.0.1.0/24`
 
 ![NSG rule allowing internal SQL traffic on TCP 1433](screenshots/04-nsg-sql-1433.png)
 
-## Connectivity Validation
+## 🧪 Connectivity Validation
 
 Connectivity from VM01 to the SQL server was tested with PowerShell:
 
@@ -170,7 +185,7 @@ This verified that TCP 1433 was reachable from the administration server to the 
 
 ![Successful Test-NetConnection from VM01 to VM02 on TCP 1433](screenshots/05-test-netconnection.png)
 
-## SQL Server and Database
+## 🗄️ SQL Server and Database
 
 SQL Server Management Studio was installed on VM01 and used to connect to:
 
@@ -194,7 +209,7 @@ Finally, **SweditechDB** was created and verified in SQL Server Management Studi
 
 ![SweditechDB in SQL Server Management Studio](screenshots/12-sweditechdb.png)
 
-## Azure Files
+## 📁 Azure Files
 
 A Storage Account and Azure file share named **sweditech-share** were created to provide shared storage.
 
@@ -214,7 +229,7 @@ The same test file was then visible from VM02, validating shared access between 
 
 ![Shared file validation from VM02](screenshots/09-shared-file-validation.png)
 
-## Cost Management
+## 💰 Cost Management
 
 The lab includes basic cost-control measures:
 
@@ -223,7 +238,7 @@ The lab includes basic cost-control measures:
 - auto-shutdown was enabled for VM01
 - virtual machines are stopped/deallocated when the lab is not in use
 
-## Security Considerations
+## 🛡️ Security Considerations
 
 The implementation follows several basic security principles:
 
@@ -234,7 +249,7 @@ The implementation follows several basic security principles:
 - passwords, storage keys, tokens, connection strings, and other secrets are excluded from documentation
 - unnecessary public exposure is avoided
 
-## Validation Checklist
+## ✅ Validation Checklist
 
 The completed implementation verifies:
 
@@ -250,7 +265,7 @@ The completed implementation verifies:
 - SSMS connection from VM01 to VM02 successful
 - SweditechDB created successfully
 
-## What I Learned
+## 📚 What I Learned
 
 This lab provided hands-on experience with how Azure infrastructure components work together rather than treating each service in isolation.
 
@@ -266,7 +281,7 @@ Key areas practiced included:
 - connecting infrastructure services across a private network
 - considering cloud resource costs during implementation
 
-## Project Status
+## 🚧 Project Status
 
 **In progress.**
 
