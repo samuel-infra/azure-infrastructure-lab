@@ -96,6 +96,16 @@ It is used to:
 
 RDP access to VM01 is restricted rather than exposed to the entire internet.
 
+### Deployment evidence
+
+The Azure portal overview below shows the administration VM and its placement in the Sweditech resource group and virtual network.
+
+![Sweditech VM01 overview](screenshots/01-vm01-overview.png)
+
+Both Windows Server virtual machines were deployed in Azure, with VM01 acting as the administration server and VM02 hosting the SQL workload.
+
+![Azure virtual machines and RDP configuration](screenshots/02-virtual-machines-rdp.png)
+
 ### Sweditech-VM02 — SQL Server
 
 VM02 hosts the database workload.
@@ -109,6 +119,14 @@ TCP 1433
 ```
 
 VM02 does not require a public IP because SQL traffic is handled internally.
+
+The network configuration confirms that VM02 is connected to the private server subnet without a public IP.
+
+![VM02 private network configuration](screenshots/03-vm02-private-network.png)
+
+Administration of VM02 was performed from VM01 using the private address `10.0.1.5`, demonstrating private VM-to-VM management inside the VNet.
+
+![Private RDP connection from VM01 to VM02](screenshots/08-private-rdp-vm02.png)
 
 ## Network Security
 
@@ -126,6 +144,10 @@ Rule name:   Allow-SQL-1433-Internal
 Windows Defender Firewall on VM02 was also configured with an inbound rule for TCP 1433.
 
 This creates two layers of traffic control: Azure NSG filtering and the Windows host firewall.
+
+The Azure NSG rule below shows TCP 1433 restricted to the internal `10.0.1.0/24` server subnet.
+
+![NSG rule allowing internal SQL traffic on TCP 1433](screenshots/04-nsg-sql-1433.png)
 
 ## Connectivity Validation
 
@@ -146,6 +168,8 @@ TcpTestSucceeded : True
 
 This verified that TCP 1433 was reachable from the administration server to the SQL server over the private network.
 
+![Successful Test-NetConnection from VM01 to VM02 on TCP 1433](screenshots/05-test-netconnection.png)
+
 ## SQL Server and Database
 
 SQL Server Management Studio was installed on VM01 and used to connect to:
@@ -158,6 +182,18 @@ After validating the connection, a database named **SweditechDB** was created.
 
 This demonstrated that the administration VM could successfully reach and manage the SQL Server workload without exposing SQL Server directly to the internet.
 
+SQL Server Database Engine Services were installed successfully on VM02.
+
+![SQL Server installation on VM02](screenshots/10-sql-server-installation.png)
+
+SSMS on VM01 was then used to establish a working connection to the SQL Server instance over the private network.
+
+![SSMS connection from VM01 to SQL Server](screenshots/11-ssms-sql-connection.png)
+
+Finally, **SweditechDB** was created and verified in SQL Server Management Studio.
+
+![SweditechDB in SQL Server Management Studio](screenshots/12-sweditechdb.png)
+
 ## Azure Files
 
 A Storage Account and Azure file share named **sweditech-share** were created to provide shared storage.
@@ -165,6 +201,18 @@ A Storage Account and Azure file share named **sweditech-share** were created to
 The file share was mounted on both VM01 and VM02.
 
 A test file created from VM01 was successfully accessed from VM02, verifying that both machines could use the same shared Azure storage.
+
+The Azure file share was created in the storage account:
+
+![Azure Files share](screenshots/06-azure-files-share.png)
+
+The share was mounted on VM01 as a network drive:
+
+![Azure file share mounted on VM01](screenshots/07-vm01-mounted-share.png)
+
+The same test file was then visible from VM02, validating shared access between the two servers:
+
+![Shared file validation from VM02](screenshots/09-shared-file-validation.png)
 
 ## Cost Management
 
