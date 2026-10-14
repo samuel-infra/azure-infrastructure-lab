@@ -1,7 +1,7 @@
 # Azure Infrastructure Lab
 
 <p align="left">
-  <img src="https://img.shields.io/badge/Microsoft_Azure-0078D4?style=flat-square&logo=microsoftazure&logoColor=white" alt="Microsoft Azure">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azure/azure-original.svg" alt="Microsoft Azure logo" height="72">
 </p>
 
 > **Hands-on Azure infrastructure project** demonstrating private networking, Windows Server administration, SQL Server, Azure Files, NSG security controls, PowerShell validation, and cost-aware cloud operations.
